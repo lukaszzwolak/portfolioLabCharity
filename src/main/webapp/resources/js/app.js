@@ -163,7 +163,88 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
       this.$step.parentElement.hidden = this.currentStep >= 5;
 
-      // TODO: get data from inputs and show them in summary
+      // Update summary
+      this.updateSummary();
+    }
+
+    /**
+     * Update summary based on form data
+     */
+    updateSummary() {
+      console.log(this.getCity() + "cos napisalem");
+
+      const summaryContainer = document.querySelector(".donation-summary-before-submit");
+      if (summaryContainer) {
+        const categories = this.getSelectedCategories();
+        const institution = this.getSelectedInstitution();
+        const quantity = this.getQuantity();
+        const street = this.getStreet();
+        const city = this.getCity();
+        const zipCode = this.getZipCode();
+        const pickUpDate = this.getPickUpDate();
+        const pickUpTime = this.getPickUpTime();
+        const pickUpComment = this.getPickUpComment();
+
+        summaryContainer.querySelector(".summary-item-categories span").innerText = categories;
+        summaryContainer.querySelector(".summary-item-institution span").innerText = institution;
+        summaryContainer.querySelector(".summary-item-quantity span").innerText = quantity;
+        summaryContainer.querySelector(".summary-item-address span").innerText = `${street}, ${city}, ${zipCode}`;
+        summaryContainer.querySelector(".summary-item-date span").innerText = pickUpDate;
+        summaryContainer.querySelector(".summary-item-time span").innerText = pickUpTime;
+        summaryContainer.querySelector(".summary-item-comment p").innerText = pickUpComment;
+      }
+    }
+
+    /**
+     * Helper methods to get form values
+     */
+    getSelectedCategories() {
+      const selectedCategories = [];
+      const categoryCheckboxes = document.querySelectorAll("input[name='categories']:checked");
+      categoryCheckboxes.forEach(checkbox => {
+        selectedCategories.push(checkbox.dataset.name);
+      });
+      return selectedCategories.join(", ");
+    }
+
+    getSelectedInstitution() {
+      const institutionSelect = document.querySelector("select[name='institution']");
+      return institutionSelect.options[institutionSelect.selectedIndex].text;
+    }
+
+    getQuantity() {
+      const quantityInput = document.querySelector("input[name='quantity']");
+      return quantityInput.value;
+    }
+
+    getStreet() {
+      const streetInput = document.querySelector("input[name='street']");
+      return streetInput.value;
+    }
+
+    getCity() {
+      const cityInput = document.querySelector("input[name='city']");
+      return cityInput.value;
+    }
+
+    getZipCode() {
+      const zipCodeInput = document.querySelector("input[name='zipCode']");
+      return zipCodeInput.value;
+    }
+
+    getPickUpDate() {
+      const pickUpDateInput = document.querySelector("input[name='pickUpDate']");
+      return pickUpDateInput.value;
+    }
+
+    getPickUpTime() {
+      const pickUpTimeInput = document.querySelector("input[name='pickUpTime']");
+      return pickUpTimeInput.value;
+    }
+
+    getPickUpComment() {
+      const pickUpCommentInput = document.querySelector("textarea[name='pickUpComment']");
+      return pickUpCommentInput.value;
     }
 
   }
