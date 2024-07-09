@@ -28,6 +28,5 @@ public class HomeController {
         model.addAttribute("totalBagsCount", totalBagsCount);
         model.addAttribute("totalGiftsCount", totalGiftsCount);
         return "home/index";
-
     }
 }
