@@ -1,4 +1,4 @@
-package pl.coderslab.charity;
+package pl.coderslab.charity.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +9,7 @@ import pl.coderslab.charity.repositories.DonationRepository;
 import pl.coderslab.charity.repositories.InstitutionRepository;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/home")
 public class HomeController {
 
     private final InstitutionRepository institutionRepository;
@@ -22,17 +22,12 @@ public class HomeController {
     }
 
     @GetMapping
-    public String home(Model model) {
+    public String index(Model model) {
         Long totalBagsCount = donationRepository.getTotalBagsCount();
         Long totalGiftsCount = donationRepository.getTotalGiftsCount();
         model.addAttribute("totalBagsCount", totalBagsCount);
         model.addAttribute("totalGiftsCount", totalGiftsCount);
-        return "index";
-    }
+        return "home/index";
 
-    @GetMapping("/fundations")
-    public String showFundations(Model model) {
-        model.addAttribute("institutions", institutionRepository.findAll());
-        return "fundations";
     }
 }
